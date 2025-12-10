@@ -1,10 +1,7 @@
 # CareLink - Healthcare & Insurance Chatbot
 
-A comprehensive healthcare and insurance management chatbot built with Pinnacle RCS messaging. CareLink helps users manage their insurance information, track claims, find doctors, and book appointments through an interactive conversational interface.
-
-
+A comprehensive healthcare and insurance management RCS chatbot built with Pinnacle. CareLink helps users manage their insurance information, track claims, find doctors, and book appointments through Rich Communication Services (RCS) messaging.
 https://github.com/user-attachments/assets/1c3cd1de-9538-42c6-8673-82122ec3f18b
-
 
 ## Features
 
@@ -43,53 +40,47 @@ https://github.com/user-attachments/assets/1c3cd1de-9538-42c6-8673-82122ec3f18b
 - Direct phone support integration
 - Category-based support (prescriptions, coverage, providers, appointments, claims, records)
 
-## Tech Stack
-
-- **Node.js** with TypeScript
-- **Express.js** for routing
-- **Pinnacle RCS SDK** (rcs-js v2.0.6)
-- **ESM modules** for modern JavaScript
-
 ## Project Structure
 
 ```
-Care Plan Follow-Up/
+Care-Plan-Follow-Up/
 ├── lib/
-│   ├── shared/
-│   │   ├── types.ts          # TypeScript interfaces for messaging
-│   │   ├── rcsClient.ts      # Pinnacle client configuration
-│   │   └── baseAgent.ts      # Base agent class with common methods
-│   ├── agent.ts              # CareLinkAgent implementation
-│   ├── data.ts               # Mock data for demo
-│   └── types.ts              # Domain-specific types
-├── router.ts                 # Express router handling webhooks
-├── package.json
-├── tsconfig.json
-├── .prettierrc
-├── .gitignore
-└── .env.example
+│   ├── types.ts              # Shared TypeScript interfaces
+│   ├── rcsClient.ts          # Pinnacle RCS client configuration
+│   ├── baseAgent.ts          # Base agent class with common functionality
+│   ├── agent.ts              # CareLink agent implementation
+│   └── data.ts               # Mock healthcare data
+├── server.ts                 # Main Express server
+├── router.ts                 # Express router for webhook handling
+├── package.json              # Project dependencies
+├── tsconfig.json             # TypeScript configuration
+├── .env.example              # Environment variables template
+└── .gitignore                # Git ignore rules
 ```
 
-## Prerequisites
-
-- Node.js 18 or higher
-- A Pinnacle API key (get one at [trypinnacle.app](https://trypinnacle.app))
-
 ## Setup
+
+### Prerequisites
+
+- Node.js 18+
+- A Pinnacle API account
+- RCS agent configured in Pinnacle
+
+### Installation
 
 1. Clone the repository
 
 2. Install dependencies:
 
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
 3. Create a `.env` file based on `.env.example`:
 
-```bash
-cp .env.example .env
-```
+   ```bash
+   cp .env.example .env
+   ```
 
 4. Configure your environment variables in `.env`:
 
@@ -97,9 +88,9 @@ cp .env.example .env
 PINNACLE_API_KEY=your_api_key_here
 PINNACLE_AGENT_ID=your_agent_id_here
 PINNACLE_SIGNING_SECRET=your_signing_secret_here
-PORT=3000
 TEST_MODE=false
-CARELINK_LOGO_URL=https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/logo.jpg
+PORT=3000
+CARELINK_LOGO_URL=https://example.com/logo.jpg
 ```
 
 5. Set up a public HTTPS URL for your webhook. For local development, you can use a tunneling service like [ngrok](https://ngrok.com):
@@ -114,43 +105,51 @@ CARELINK_LOGO_URL=https://server.trypinnacle.app/storage/v1/object/public/pinnac
    - Go to the [Pinnacle Webhooks Dashboard](https://app.pinnacle.sh/dashboard/development/webhooks)
    - Add your public URL with the `/webhook` path (e.g., `https://your-domain.com/webhook`)
    - Select your RCS agent to receive messages at this endpoint
-   - Copy the signing secret and add it to your `.env` file as `PINNACLE_SIGNING_SECRET`. The `process()` method automatically uses this environment variable to verify the request signature.
+   - Copy the signing secret and add it to your `.env` file as `PINNACLE_SIGNING_SECRET`. The `process()` method uses this environment variable to verify the request signature.
 
 7. Text "MENU" or "START" to the bot to see the main menu.
 
-## Running the Application
+### Running the Application
 
-### Development Mode (with auto-reload)
+Development mode with auto-reload:
 
 ```bash
 npm run dev
 ```
 
-### Production Mode
+Production mode:
 
 ```bash
 npm start
 ```
 
-## Usage
+## Configuration
 
-Users can interact with CareLink through RCS-enabled messaging by:
+### Environment Variables
 
-1. Sending `START`, `SUBSCRIBE`, or `MENU` to access the main menu
-2. Using interactive buttons to navigate through features
-3. Viewing insurance cards with policy details
-4. Tracking claim status and costs
-5. Finding nearby doctors and booking appointments
-6. Getting support through FAQs or direct phone calls
+| Variable                  | Description                                                            | Required            |
+| ------------------------- | ---------------------------------------------------------------------- | ------------------- |
+| `PINNACLE_API_KEY`        | Your Pinnacle API key                                                  | Yes                 |
+| `PINNACLE_AGENT_ID`       | Your RCS agent ID from Pinnacle Dashboard                              | Yes                 |
+| `PINNACLE_SIGNING_SECRET` | Webhook signing secret for verification                                | Yes                 |
+| `TEST_MODE`               | Set to `true` for sending with a test RCS agent to whitelisted numbers | No (default: false) |
+| `PORT`                    | Server port                                                            | No (default: 3000)  |
+| `CARELINK_LOGO_URL`       | URL for CareLink logo image                                            | No                  |
 
-## Message Flow
+## Supported Actions
 
-1. **Main Menu**: Entry point with quick access to all features
-2. **Insurance Info**: View policies, deductibles, and out-of-pocket maximums
-3. **Claims**: Browse claims and view detailed cost breakdowns
-4. **Doctor Finder**: Search doctors, view profiles, and get directions
-5. **Appointments**: Book time slots and set reminders
-6. **Support**: Access FAQs and contact support
+| Action              | Description                     |
+| ------------------- | ------------------------------- |
+| `showMainMenu`      | Display main menu               |
+| `viewInsurance`     | View insurance policy details   |
+| `viewDeductible`    | Check deductible status         |
+| `viewClaims`        | View submitted claims           |
+| `viewClaimDetails`  | View detailed claim information |
+| `findDoctors`       | Search for nearby doctors       |
+| `viewDoctorProfile` | View doctor details             |
+| `bookAppointment`   | Book an appointment             |
+| `viewFAQs`          | View frequently asked questions |
+| `contactSupport`    | Access customer support         |
 
 ## Demo Data
 
@@ -161,17 +160,6 @@ The chatbot includes realistic demo data:
 - Recent claims with various statuses
 - 3 nearby doctors with different specialties
 - 10 frequently asked questions across multiple categories
-
-## Environment Variables
-
-| Variable                  | Description                                             | Required |
-| ------------------------- | ------------------------------------------------------- | -------- |
-| `PINNACLE_API_KEY`        | Your Pinnacle API key                                   | Yes      |
-| `PINNACLE_AGENT_ID`       | Your RCS agent ID                                       | Yes      |
-| `PINNACLE_SIGNING_SECRET` | Your webhook signing secret from the Pinnacle dashboard | Yes      |
-| `PORT`                    | Server port (default: 3000)                             | No       |
-| `TEST_MODE`               | Enable test mode (true/false)                           | No       |
-| `CARELINK_LOGO_URL`       | URL for CareLink logo image                             | No       |
 
 ## Development
 
@@ -193,10 +181,23 @@ npm run lint
 npm run build
 ```
 
-## License
+## Technologies
 
-MIT
+- **TypeScript**: Type-safe development
+- **Express**: Web framework for webhook handling
+- **rcs-js**: Pinnacle RCS SDK v2.0.6+
+- **tsx**: TypeScript execution and hot-reload
 
 ## Support
 
-For questions or support, please refer to the [Pinnacle documentation](https://docs.trypinnacle.app/) or contact your Pinnacle account manager.
+For issues related to:
+
+- RCS functionality: Contact Pinnacle support
+- Chatbot implementation: Refer to the code documentation
+- Configuration: Check the `.env.example` file
+
+## Resources
+
+- **Dashboard**: Visit [Pinnacle Dashboard](https://app.pinnacle.sh)
+- **Documentation**: Visit [Pinnacle Documentation](https://docs.pinnacle.sh)
+- **Support**: Email [founders@trypinnacle.app](mailto:founders@trypinnacle.app)
