@@ -2,6 +2,10 @@
 
 A comprehensive healthcare and insurance management chatbot built with Pinnacle RCS messaging. CareLink helps users manage their insurance information, track claims, find doctors, and book appointments through an interactive conversational interface.
 
+
+https://github.com/user-attachments/assets/1c3cd1de-9538-42c6-8673-82122ec3f18b
+
+
 ## Features
 
 ### Insurance Management
