@@ -1,13 +1,13 @@
 import { rcsClient } from './rcsClient';
 
 export class BaseAgent {
-  protected readonly agentName: string = process.env.PINNACLE_AGENT_NAME!;
+  protected readonly agentId: string = process.env.PINNACLE_AGENT_ID!;
   protected readonly client = rcsClient;
   protected readonly TEST_MODE = process.env.TEST_MODE === 'true';
 
   async sendMessage(to: string, text: string) {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to,
       text,
       quickReplies: [],
@@ -16,7 +16,7 @@ export class BaseAgent {
 
   async sendButtonOnlyMessage(to: string) {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to,
       text: 'This agent does not process text messages. Please use the buttons provided to interact.',
       quickReplies: [
@@ -32,7 +32,7 @@ export class BaseAgent {
 
   async sendStrictFormatMessage(to: string, formatInstructions: string) {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to,
       text: formatInstructions,
       quickReplies: [

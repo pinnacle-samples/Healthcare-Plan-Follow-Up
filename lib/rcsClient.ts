@@ -1,5 +1,5 @@
-import { Pinnacle } from 'rcs-js';
+import { PinnacleClient } from 'rcs-js';
 
-export const rcsClient = new Pinnacle({
+export const rcsClient = new PinnacleClient({
   apiKey: process.env.PINNACLE_API_KEY,
 });

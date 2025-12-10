@@ -6,7 +6,7 @@ export class CareLinkAgent extends BaseAgent {
   // Welcome / Main Menu
   async showMainMenu(to: string) {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: [
         {
@@ -50,14 +50,14 @@ export class CareLinkAgent extends BaseAgent {
   // View Insurance Information
   async viewInsurance(to: string) {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: [
         {
           title: '🏢 Blue Cross PPO (Primary)',
           subtitle: `Policy: ${defaultPatient.insuranceInfo.policyNumber}\nGroup: ${defaultPatient.insuranceInfo.groupNumber}`,
           media:
-            'https://1000logos.net/wp-content/uploads/2025/03/Blue-Cross-Blue-Shield-Emblem.png',
+            'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/blue-cross-blue-shield-logo.png',
           buttons: [
             {
               type: 'trigger',
@@ -81,7 +81,7 @@ export class CareLinkAgent extends BaseAgent {
           title: '🏥 Aetna Supplemental (Secondary)',
           subtitle: 'Policy: AET987654321\nGroup: GRP54321',
           media:
-            'https://ihealthbrokers.com/wp-content/uploads/2016/06/Aetna-Senior-Supplement-Insurance-1.jpg',
+            'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/aetna-logo.jpg',
           buttons: [
             {
               type: 'trigger',
@@ -133,7 +133,7 @@ export class CareLinkAgent extends BaseAgent {
         : Math.round(((deductible.total - deductible.remaining) / deductible.total) * 100);
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text:
         `Deductible Status - ${planName}\n\n` +
@@ -171,7 +171,7 @@ export class CareLinkAgent extends BaseAgent {
       plan === 'primary' ? oopPercent : Math.round(((oop.total - oop.remaining) / oop.total) * 100);
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text:
         `Out-of-Pocket Maximum - ${planName}\n\n` +
@@ -199,11 +199,11 @@ export class CareLinkAgent extends BaseAgent {
   async viewClaims(to: string) {
     const claimImages: Record<string, string> = {
       'Annual Physical Exam':
-        'https://www.onemedical.com/media/images/Physical_ZK5kYIG.original.jpg',
+        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/physical-exam.jpg',
       'Blood Work Panel':
-        'https://source.colostate.edu/wp-content/uploads/2024/02/blood-est-results.jpeg',
+        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/blood-test-results.jpeg',
       'Specialist Consultation':
-        'https://millenniummedicalcare.com/wp-content/uploads/internal-medicine-2406.jpg',
+        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/internal-medicine.jpg',
     };
 
     const claimCards: Pinnacle.RcsCards.Cards.Item[] = defaultClaims.map((claim) => ({
@@ -224,7 +224,7 @@ export class CareLinkAgent extends BaseAgent {
     }));
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: claimCards,
       quickReplies: [
@@ -257,7 +257,7 @@ export class CareLinkAgent extends BaseAgent {
             : '📄';
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text:
         `Claim Details\n\n` +
@@ -302,7 +302,7 @@ export class CareLinkAgent extends BaseAgent {
     }));
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: faqCards,
       quickReplies: [
@@ -372,7 +372,7 @@ export class CareLinkAgent extends BaseAgent {
     }));
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: doctorCards,
       quickReplies: [
@@ -389,7 +389,7 @@ export class CareLinkAgent extends BaseAgent {
   // Make Appointment
   async makeAppointment(to: string, doctorName: string = 'Dr. Michael Chen') {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: `🗓️ Here is ${doctorName}'s availability.`,
       quickReplies: [
@@ -435,7 +435,7 @@ export class CareLinkAgent extends BaseAgent {
   // Book Appointment Time
   async bookAppointmentTime(to: string, time: string, doctorName: string = 'your doctor') {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: `Appointment Confirmed ✅\n\nYour appointment with ${doctorName} has been booked for tomorrow at ${time}.\n\nYour doctor will receive your insurance information automatically.\n\nWould you like a reminder 1 hour before your appointment?`,
       quickReplies: [
@@ -465,7 +465,7 @@ export class CareLinkAgent extends BaseAgent {
   // Confirm Reminder
   async confirmReminder(to: string, time: string, doctorName: string = 'your doctor') {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: `Reminder Set 🔔\n\nYou'll receive a reminder 1 hour before your ${time} appointment with ${doctorName} tomorrow.\n\nSee you then!`,
       quickReplies: [
@@ -482,7 +482,7 @@ export class CareLinkAgent extends BaseAgent {
   // Decline Reminder
   async declineReminder(to: string) {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: `Got it! No reminder will be sent.`,
       quickReplies: [
@@ -517,7 +517,7 @@ export class CareLinkAgent extends BaseAgent {
     }
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: `🕘 Office Hours\n\n${hoursText}\n\nClosed on weekends and holidays.`,
       quickReplies: [

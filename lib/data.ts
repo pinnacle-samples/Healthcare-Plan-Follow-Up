@@ -145,7 +145,7 @@ export const doctorLocations: DoctorLocation[] = [
     rating: 4.8,
     lat: 37.7886,
     lng: -122.4098,
-    media: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80',
+    media: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/doctor-michael-chen.jpg',
   },
   {
     name: 'Dr. Sarah Johnson',
@@ -160,7 +160,7 @@ export const doctorLocations: DoctorLocation[] = [
     rating: 4.9,
     lat: 37.7917,
     lng: -122.4329,
-    media: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80',
+    media: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/doctor-sarah-johnson.jpg',
   },
   {
     name: 'Dr. James Wilson',
@@ -176,7 +176,7 @@ export const doctorLocations: DoctorLocation[] = [
     lat: 37.7858,
     lng: -122.4545,
     media:
-      'https://t4.ftcdn.net/jpg/01/36/18/77/360_F_136187711_qeBMOwkPdTg1dCN8e5TR1AmduXDz60Xn.jpg',
+      'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/care-plan/doctor-office.jpg',
   },
 ];
 

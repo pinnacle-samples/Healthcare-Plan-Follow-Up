@@ -2,12 +2,12 @@
   "name": "care-plan-follow-up",
   "version": "1.0.0",
   "description": "A healthcare and insurance chatbot that helps users manage their care plans, insurance information, claims, and doctor appointments via RCS messaging",
-  "main": "router.ts",
+  "main": "server.ts",
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "tsx router.ts",
-    "dev": "tsx watch router.ts",
+    "start": "tsx server.ts",
+    "dev": "tsx watch server.ts",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write ."
   },
@@ -25,7 +25,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
-    "rcs-js": "^2.0.4"
+    "rcs-js": "^2.0.6"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
